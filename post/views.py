@@ -3,10 +3,12 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import BlogPost
 from .serializers import BlogPostSerializer
+from rest_framework.permissions import IsAuthenticated
 
 
 class BlogPostView(APIView):
-
+    permission_classes = [IsAuthenticated]
+    
     def get(self, request, pk=None):
         if pk:
             try:
@@ -23,7 +25,7 @@ class BlogPostView(APIView):
     def post(self, request):
         serializer = BlogPostSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -47,3 +49,6 @@ class BlogPostView(APIView):
             return Response({"error": "Post not found"}, status=status.HTTP_404_NOT_FOUND)
         post.delete()
         return Response({"message": "Post deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+
+
