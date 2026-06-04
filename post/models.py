@@ -14,7 +14,7 @@ class BlogPost(models.Model):
     published_at = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
-        return self.title  # Fixed: was self.name
+        return self.title 
 
     class Meta:
         ordering = ["-created_at"]
