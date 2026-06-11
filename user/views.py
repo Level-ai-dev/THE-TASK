@@ -4,8 +4,9 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, get_user_model
 
+User = get_user_model()
 
 @api_view(['POST'])
 @permission_classes([AllowAny])          

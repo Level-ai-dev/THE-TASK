@@ -1,17 +1,13 @@
-from django.db import models
 from django.contrib.auth.models import AbstractUser
-
-# Create your models here.
-
+from django.db import models
 
 class User(AbstractUser):
-    bio = models.TextField(blank=True)
+    bio          = models.TextField(blank=True)
     user_picture = models.ImageField(
-        upload_to='user_picture',
-        blank=True,
-        null=True
-    )
-    
+                       upload_to='user_picture',
+                       blank=True,
+                       null=True
+                   )
+
     def __str__(self):
-        return self.email 
-    
+        return self.email

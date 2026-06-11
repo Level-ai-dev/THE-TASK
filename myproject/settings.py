@@ -55,7 +55,7 @@ from celery.schedules import crontab
 
 CELERY_BEAT_SCHEDULE = {
     'publish-scheduled-posts': {
-        'task': 'blog.tasks.publish_scheduled_posts',
+        'task': 'post.tasks.publish_scheduled_posts',
         'schedule': crontab(minute='*/10')
     }
 }

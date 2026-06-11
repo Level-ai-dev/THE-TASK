@@ -6,14 +6,14 @@ from django.utils import timezone
 def publish_scheduled_posts():
     due_posts = BlogPost.objects.filter(
         status='scheduled',
-        publish_at_lte=timezone.now()
+        publish_at=timezone.now()
     )
     
     count = due_posts.count()
     
     due_posts.update(
         status = 'published',
-        published_at = timezone.now()
+        publish_at = timezone.now()
     )
     
     return f"Published {count} post"
