@@ -41,7 +41,29 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'post',
     'user',
+    'django_celery_beat',
 ]
+
+AUTH_USER_MODEL = 'user.User'
+
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_TIMEZONE  = 'Africa/Lagos'
+
+from celery.schedules import crontab
+
+CELERY_BEAT_SCHEDULE = {
+    'publish-scheduled-posts': {
+        'task': 'blog.tasks.publish_scheduled_posts',
+        'schedule': crontab(minute='*/10')
+    }
+}
+
+
+
+
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -58,10 +80,6 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME':  timedelta(hours=1),   
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),    
 }
-
-
-
-
 
 
 

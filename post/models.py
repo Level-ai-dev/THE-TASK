@@ -2,15 +2,22 @@
 
 # Create your models here.
 from django.db import models
-from user.models import user
-from django.contrib.auth.models import User
+from django.conf import settings
+from django.utils import timezone
 
 class BlogPost(models.Model):
-    user = models.ForeignKey(user, on_delete=models.CASCADE,related_name='posts')
+    status_choices = [
+        ('draft', 'Draft'),
+        ('scheduled', 'Scheduled'),
+        ('published', 'Published'),
+    ]
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,related_name='posts')
     title = models.CharField(max_length=40)
     slug    = models.SlugField(unique=True)
     content = models.TextField()
+    status = models.CharField(max_length=10, choices=status_choices, default='draft')
     created_at = models.DateTimeField(auto_now_add=True)
+    publish_at = models.DateTimeField(null=True, blank=True)
     published_at = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):

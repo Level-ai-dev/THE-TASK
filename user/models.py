@@ -1,15 +1,16 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
 
 
-class user(models.Model):
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    user_name = models.CharField(max_length=15)
-    email = models.EmailField(max_length=50, unique=True)
-    password = models.CharField(max_length=50, unique=True)
+class User(AbstractUser):
+    bio = models.TextField(blank=True)
+    user_picture = models.ImageField(
+        upload_to='user_picture',
+        blank=True,
+        null=True
+    )
     
     def __str__(self):
         return self.email 
