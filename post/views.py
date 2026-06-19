@@ -9,6 +9,8 @@ from django.utils.dateparse import parse_datetime
 from celery.result import AsyncResult
 from .tasks import publish_scheduled_post
 
+from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiResponse, OpenApiExample
+from drf_spectacular.types import OpenApiTypes
 
 
 
@@ -60,9 +62,6 @@ def delete(request, pk):
         return Response({"error": "Post not found"}, status=status.HTTP_404_NOT_FOUND)
     post.delete()
     return Response({"message": "Post deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
-
-
-
 
 
 

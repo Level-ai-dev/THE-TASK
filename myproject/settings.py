@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'post',
     'user',
     'django_celery_beat',
+    'drf_spectacular',
 ]
 
 AUTH_USER_MODEL = 'user.User'
@@ -62,17 +63,25 @@ CELERY_BEAT_SCHEDULE = {
 
 
 
-
-
-
 REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',  
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+ 
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
 }
+
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'My Project API',
+    'DESCRIPTION': 'This is a myblog API',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
+
 
 from datetime import timedelta
 
