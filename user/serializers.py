@@ -42,3 +42,4 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
         
         data['user'] = user
         return data
+    

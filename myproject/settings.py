@@ -82,6 +82,19 @@ SPECTACULAR_SETTINGS = {
     'SERVE_INCLUDE_SCHEMA': False,
 }
 
+SWAGGER_SEETINGS = {
+    'SECURITY_DEFINITIONS': {
+        "Auth Token eg [Bearer (JWT)]": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    }
+}
+
+
+
+
 
 from datetime import timedelta
 

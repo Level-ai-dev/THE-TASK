@@ -14,7 +14,7 @@ from drf_spectacular.types import OpenApiTypes
 
 
 
-
+@extend_schema(responses=BlogPostSerializer)
 @api_view(['GET'])                           
 def get(request, pk=None):
     if pk:
@@ -152,7 +152,7 @@ def cancel_scheduled_post(request, pk):
     blog_post.save(update_fields=['status', 'task_id', 'publish_at'])
 
     return Response(
-        {
+        { 
             "message": "Scheduled post cancelled and reverted to draft.",
             "post":    BlogPostSerializer(blog_post).data,
         },
