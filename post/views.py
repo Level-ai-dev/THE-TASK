@@ -9,9 +9,7 @@ from django.utils.dateparse import parse_datetime
 from celery.result import AsyncResult
 from .tasks import publish_scheduled_post
 
-from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiResponse, OpenApiExample
-from drf_spectacular.types import OpenApiTypes
-
+from drf_spectacular.utils import extend_schema
 
 
 @extend_schema(responses=BlogPostSerializer)
@@ -163,9 +161,6 @@ def cancel_scheduled_post(request, pk):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def task_status(request, pk):
-    """
-    Check the Celery task state for a scheduled post.
-    """
     try:
         blog_post = BlogPost.objects.get(pk=pk, author=request.user)
     except BlogPost.DoesNotExist:
